@@ -140,28 +140,28 @@ func radioHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 		log.Printf("StartOver intent")
 
 		//todo implement
-		card := fmt.Sprint("Stör mich jetzt nicht, ich hab zu tun!")
+		card := fmt.Sprint("OK, dann fangen wir von vorne an.")
 		speech := fmt.Sprintf("<speak>%s</speak>", card)
 		echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 	case "AMAZON.RepeatIntent":
 		log.Printf("Repeat intent")
 
 		//todo implement
-		card := fmt.Sprint("Stör mich jetzt nicht, ich hab zu tun!")
+		card := fmt.Sprint("Ich wiederhole.")
 		speech := fmt.Sprintf("<speak>%s</speak>", card)
 		echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 	case "AMAZON.LoopOnIntent":
 		shared.SwitchLoop(echoReq.Context.System.Device.DeviceId, true)
 		log.Printf("LoopOff intent")
 
-		card := fmt.Sprint("Loop ist jetzt an")
+		card := fmt.Sprint("Musikschleife ist jetzt an.")
 		speech := fmt.Sprintf("<speak>%s</speak>", card)
 		echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 	case "AMAZON.LoopOffIntent":
 		shared.SwitchLoop(echoReq.Context.System.Device.DeviceId, false)
 		log.Printf("LoopOff intent")
 
-		card := fmt.Sprint("Loop ist jetzt aus")
+		card := fmt.Sprint("Musikschleife ist jetzt aus")
 		speech := fmt.Sprintf("<speak>%s</speak>", card)
 		echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 	case "AMAZON.PauseIntent":
@@ -186,7 +186,7 @@ func radioHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 			}
 		} else {
 			//inform user that playlist is at end
-			card := fmt.Sprint("Puh, endlich kann ich ausruhen! Playlist ist durch.")
+			card := fmt.Sprint("Ende der Playlist ist erreicht.")
 			speech := fmt.Sprintf("<speak>%s</speak>", card)
 			echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 		}
@@ -201,7 +201,7 @@ func radioHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 		card := ""
 
 		if (Artist == "") && (Album == "") && (Track == "") {
-			card = fmt.Sprint("Ich hab keinen plan was da laufen sollte, oder wieso!")
+			card = fmt.Sprint("Ich habe leider keinen Titel finden können.")
 		} else {
 			card = "Das sollte "
 
@@ -231,13 +231,13 @@ func radioHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 			directive := makeAudioPlayDirective(nextFileName, false, nextTrackID)
 			log.Println("URL:", directive.AudioItem.Stream.Url)
 
-			card := fmt.Sprint("Ok, ich mach ja schon weiter!")
+			card := fmt.Sprint("Ok, Musik wird abgespiet.")
 			speech := fmt.Sprintf("<speak>%s</speak>", card)
 			echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 
 			echoResp.Response.Directives = append(echoResp.Response.Directives, directive)
 		} else {
-			card := fmt.Sprintf("Hey, erst musst du mir sagen was ich raussuchen muss! Also was soll es sein?")
+			card := fmt.Sprintf("Es wurde keine Musik abgespielt. Was möchtest du hören?")
 			speech := fmt.Sprintf("<speak>%s</speak>", card)
 			echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 
@@ -257,13 +257,13 @@ func radioHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 				directive := makeAudioPlayDirective(nextFileName, false, nextTrackID)
 				log.Println("URL:", directive.AudioItem.Stream.Url)
 
-				card := fmt.Sprintf("ich such ja schon %s raus", SearchString)
+				card := fmt.Sprintf("Ich spiele %s", SearchString)
 				speech := fmt.Sprintf("<speak>%s</speak>", card)
 				echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 
 				echoResp.Response.Directives = append(echoResp.Response.Directives, directive)
 			} else {
-				card := fmt.Sprintf("Ich konnte für %s absolut nix finden!", SearchString)
+				card := fmt.Sprintf("Ich konnte %s nicht finden.", SearchString)
 				speech := fmt.Sprintf("<speak>%s</speak>", card)
 				echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 			}
@@ -278,7 +278,7 @@ func radioHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	case "":
 		log.Printf("default intent")
 
-		card := fmt.Sprint("Was willst du schon wieder?")
+		card := fmt.Sprint("Was möchtest du höhren?")
 		speech := fmt.Sprintf("<speak>%s</speak>", card)
 		echoResp.OutputSpeechSSML(speech).Card("Network Music Player", card)
 
