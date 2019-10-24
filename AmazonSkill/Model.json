@@ -81,10 +81,6 @@
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.PrevoiusIntent",
-                    "samples": []
-                },
-                {
                     "name": "AMAZON.RepeatIntent",
                     "samples": []
                 },
